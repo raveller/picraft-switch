@@ -1,0 +1,26 @@
+div {
+    font-family: sans-serif;
+    font-size: small;
+    text-align: left;
+}
+table {
+    padding: 0px;
+    border-spacing: 0px;
+}
+tr {
+    padding: 0px;
+}
+th {
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: small;
+    text-align: left;
+    padding: 2px 4px 2px 4px;
+}
+td, div {
+    font-family: sans-serif;
+    font-size: small;
+    text-align: left;
+    padding: 2px 4px 2px 4px;
+}
+tr:nth-child(even) {background: #EEE}

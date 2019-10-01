@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="PiCraftSwitcherApp">
+<head>
+<title>PiCraft Switcher</title>
+<link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAvskAAHmABAAMKnoA8f8AAAxWsABjWgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZmAAAAAAAABhYAAAAAAAAGZQAABmAAAAADUAZiYAAAAAA1YiYAAAAAAAYmYAAAAAAAYmFCAAAAAABiZBQgAAAABiYCQUIAAAAGYAAkFCAAAAAAAAJBQgAAAAAAACQUIAAAAAAAAkFCAAAAAAAAJBQgAAAAAAACQSAAAAAAAAAiIf/wAAH/8AAA8/AADEPwAA4H8AAPD/AADgfwAA4D8AAMQfAADODwAA/wcAAP+DAAD/wQAA/+AAAP/wAAD/+AAA" rel="icon" type="image/x-icon" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+<script src="controller.js" ></script>
+</head>
+<body>
+    <div ng-controller="PiCraftSwitcherController" >           
+ 
+        <div ng-controller="ViewController">
+            <div>
+            <h1>PiCraft Switcher</h1>
+            <h3>It switches your Minecraft server instance on a Raspberry Pi! (Or any other device)</h3>
+                <p><b>Server Status<b></p>
+                <p ng-repeat="item in status">
+                    <i>{{ item }}</i>
+                </p>
+            </div>
+			<hr/>
+            <hr/>
+            <table>
+            <tr>
+            	<th></th>
+            	<th>World Path</th>
+            	<th>Level Name</th>
+            	<th>Game Mode</th>
+            	<th>Message of the Day</th>
+            	<th>Level Seed</th>
+            	<th>PiCraft Type</th>
+            	<th></th>
+            </tr>
+            <tr ng-repeat="item in worlds" ng-show="areWorldsLoaded" >
+            
+            	<td><button ng-click="startWorld(item)" ng-disabled="inAction || !isStatusLoaded || serverUp || serverStartRequested">Start!</button></td>
+            	<td>{{item.worldId}}</td>
+            	<td><input type='text' size=14 ng-model='item.levelName' /></td>
+            	<td><select ng-model='item.gamemode'><option>survival</option><option>adventure</option><option>creative</option></select></td>
+            	<td><input type='text' size=50 ng-model='item.messageOfTheDay' /></td>
+            	<td>{{item.levelSeed}}</td>
+            	<td>{{item.type}}</td>
+            	<td><button ng-click="modifyWorld(item)">Update</button><td>
+            </tr>    
+            <tr >
+            
+            	<td></td>
+            	<td><input type='text' size=7 ng-model='createDetail.worldId' /></td>
+            	<td><input type='text' size=14 ng-model='createDetail.levelName' /></td>
+            	<td><select ng-model='createDetail.gamemode'><option>survival</option><option>adventure</option><option>creative</option></select></td>
+            	<td><input type='text' size=50 ng-model='createDetail.messageOfTheDay' /></td>
+            	<td><input type='text' size=10 ng-model='createDetail.levelSeed' /></td>
+            	<td>{{createDetail.type}}</td>
+            	<td><button ng-click="createWorld(createDetail)">Create</button><td>
+            </tr>                        
+			</table>
+            <hr/>
+			<button ng-click="stop()" ng-disabled="inAction || !isStatusLoaded || !serverUp || serverStartRequested">Stop currently running world</button>
+		</div>
+    </div>
+</body>
+</html>
